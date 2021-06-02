@@ -87,10 +87,11 @@ class _assetSophos(trigger._trigger):
                             # Other Sophos Values
                             result["tamperProtection"] = computer["tamperProtectionEnabled"]
                             versions = {}
-                            for product in computer["assignedProducts"]:
-                                if product["status"] == "installed":
-                                    versions[product["code"]] = product["version"]
-                            result["versions"] = versions
+                            if "assignedProducts" in computer:
+                                for product in computer["assignedProducts"]:
+                                    if product["status"] == "installed":
+                                        versions[product["code"]] = product["version"]
+                                result["versions"] = versions
                             result["health"] = computer["health"]["overall"]
                         
                             self.result["events"].append(result)
