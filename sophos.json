@@ -1,0 +1,209 @@
+{
+    "name" : "sophos",
+    "author" : "biscuit-thief, aberlleiniog",
+    "version" : 1.0,
+    "categories" : ["anti-virus"],
+    "description" : "Objects for interacting with Sophos Cloud API",
+    "icon" : null,
+    "requirements" : {
+        "jimi_min_version" : null,
+        "jimi_max_version" : null,
+        "plugins" : []
+    },
+    "collections" : {
+
+    },
+    "triggers" : {
+        "sophos" : {
+            "display_name" : "sophos",
+            "className" : "_sophos",
+            "class_location" : "models.trigger",
+            "description" : "Attempts to retrieve all alerts from Sophos Console",
+            "fields" : [
+                { "schema_item" : "category", "schema_value" : "category", "type" : "input", "label" : "category", "description" : "The category of alerts to return", "required" : false, "jimi_syntax" : false },
+                { "schema_item" : "XOrganizationID", "schema_value" : "XOrganizationID", "type" : "input", "label" : "XOrganizationID", "description" : "The organisation ID to use", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_id", "schema_value" : "client_id", "type" : "input", "label" : "client id", "description" : "The Sophos ID to use to authenticate", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_secret", "schema_value" : "client_secret", "type" : "input", "label" : "client secret", "description" : "The client secret to authenticate with", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "tenants", "schema_value" : "tenants", "type" : "input", "label" : "tenants", "description" : "Which tenant to query against", "required" : true, "jimi_syntax" : false }
+            ]
+        },
+        "assetSophos" : {
+            "display_name" : "assetSophos",
+            "className" : "_assetSophos",
+            "class_location" : "models.assetSophos",
+            "description" : "Return asset related information from Sophos",
+            "fields" : [
+                { "schema_item" : "filters", "schema_value" : "filters", "type" : "input", "label" : "filters", "description" : "Any filters to apply to the search", "required" : false, "jimi_syntax" : false },
+                { "schema_item" : "XOrganizationID", "schema_value" : "XOrganizationID", "type" : "input", "label" : "XOrganizationID", "description" : "The organisation ID to use", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_id", "schema_value" : "client_id", "type" : "input", "label" : "client id", "description" : "The Sophos ID to use to authenticate", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_secret", "schema_value" : "client_secret", "type" : "input", "label" : "client secret", "description" : "The client secret to authenticate with", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "tenants", "schema_value" : "tenants", "type" : "input", "label" : "tenants", "description" : "Which tenant to query against", "required" : true, "jimi_syntax" : false }
+            ]
+        }
+    },
+    "actions" : {
+        "sophosEndpoint" : {
+            "display_name" : "sophosEndpoint",
+            "className" : "_sophosEndpoint",
+            "class_location" : "models.action",
+            "description" : "Retrieve details about the Sophos endpoint based on the ID provided",
+            "fields" : [
+                { "schema_item" : "endpointID", "schema_value" : "endpointID", "type" : "input", "label" : "endpoint id", "description" : "The ID of the target endpoint", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "XOrganizationID", "schema_value" : "XOrganizationID", "type" : "input", "label" : "XOrganizationID", "description" : "The organisation ID to use", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_id", "schema_value" : "client_id", "type" : "input", "label" : "client id", "description" : "The Sophos ID to use to authenticate", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_secret", "schema_value" : "client_secret", "type" : "input", "label" : "client secret", "description" : "The client secret to authenticate with", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "tenant", "schema_value" : "tenant", "type" : "input", "label" : "tenant", "description" : "The tenant to query against", "required" : true, "jimi_syntax" : false }
+            ],
+            "data_out" : {
+                "result" : { 
+                    "description" : "Determines if the given action was successful.",
+                    "type" : "boolean",
+                    "always_present" : true,
+                    "values" : {
+                        "True" : { "description" : "Action completed successfully." },
+                        "False" : { "description" : "Action was unsuccessful." }
+                    }
+                },
+                "rc" : {
+                    "description" : "Returns the provided rc field value.",
+                    "type" : "number",
+                    "always_present" : true,
+                    "values" : {
+                        "(number)" : { "description" : "The integer provided within the rc field." }
+                    }
+                },
+                "data" : {
+                    "description" : "Outputs any returned data from the Sophos API",
+                    "type" : "json",
+                    "always_present" : false,
+                    "values" : {
+                        "(string)" : { "description" : "The returned data from the Sophos API" }
+                    }
+                }
+            }
+        },
+        "sophosScan" : {
+            "display_name" : "sophosScan",
+            "className" : "_sophosScan",
+            "class_location" : "models.action",
+            "description" : "Execute a scan against the target endpoint",
+            "fields" : [
+                { "schema_item" : "endpointID", "schema_value" : "endpointID", "type" : "input", "label" : "endpoint id", "description" : "The ID of the target endpoint", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "XOrganizationID", "schema_value" : "XOrganizationID", "type" : "input", "label" : "XOrganizationID", "description" : "The organisation ID to use", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_id", "schema_value" : "client_id", "type" : "input", "label" : "client id", "description" : "The Sophos ID to use to authenticate", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_secret", "schema_value" : "client_secret", "type" : "input", "label" : "client secret", "description" : "The client secret to authenticate with", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "tenant", "schema_value" : "tenant", "type" : "input", "label" : "tenant", "description" : "The tenant to query against", "required" : true, "jimi_syntax" : false }
+            ],
+            "data_out" : {
+                "result" : { 
+                    "description" : "Determines if the given action was successful.",
+                    "type" : "boolean",
+                    "always_present" : true,
+                    "values" : {
+                        "True" : { "description" : "Action completed successfully." },
+                        "False" : { "description" : "Action was unsuccessful." }
+                    }
+                },
+                "rc" : {
+                    "description" : "Returns the provided rc field value.",
+                    "type" : "number",
+                    "always_present" : true,
+                    "values" : {
+                        "(number)" : { "description" : "The integer provided within the rc field." }
+                    }
+                },
+                "data" : {
+                    "description" : "Outputs any returned data from the Sophos API",
+                    "type" : "json",
+                    "always_present" : false,
+                    "values" : {
+                        "(string)" : { "description" : "The returned data from the Sophos API" }
+                    }
+                }
+            }
+        },
+        "sophosGetTamperProtection" : {
+            "display_name" : "sophosGetTamperProtection",
+            "className" : "_sophosGetTamperProtection",
+            "class_location" : "models.action",
+            "description" : "Get the tamper protection password for the target endpoint",
+            "fields" : [
+                { "schema_item" : "endpointID", "schema_value" : "endpointID", "type" : "input", "label" : "endpoint id", "description" : "The ID of the target endpoint", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "XOrganizationID", "schema_value" : "XOrganizationID", "type" : "input", "label" : "XOrganizationID", "description" : "The organisation ID to use", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_id", "schema_value" : "client_id", "type" : "input", "label" : "client id", "description" : "The Sophos ID to use to authenticate", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_secret", "schema_value" : "client_secret", "type" : "input", "label" : "client secret", "description" : "The client secret to authenticate with", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "tenant", "schema_value" : "tenant", "type" : "input", "label" : "tenant", "description" : "The tenant to query against", "required" : true, "jimi_syntax" : false }
+            ],
+            "data_out" : {
+                "result" : { 
+                    "description" : "Determines if the given action was successful.",
+                    "type" : "boolean",
+                    "always_present" : true,
+                    "values" : {
+                        "True" : { "description" : "Action completed successfully." },
+                        "False" : { "description" : "Action was unsuccessful." }
+                    }
+                },
+                "rc" : {
+                    "description" : "Returns the provided rc field value.",
+                    "type" : "number",
+                    "always_present" : true,
+                    "values" : {
+                        "(number)" : { "description" : "The integer provided within the rc field." }
+                    }
+                },
+                "data" : {
+                    "description" : "Returns the tamper protection password",
+                    "type" : "text",
+                    "always_present" : false,
+                    "values" : {
+                        "(string)" : { "description" : "The tamper protection password" }
+                    }
+                }
+            }
+        },
+        "sophosSetTamperProtection" : {
+            "display_name" : "sophosSetTamperProtection",
+            "className" : "_sophosSetTamperProtection",
+            "class_location" : "models.action",
+            "description" : "Set the tamper protection password for the target endpoint",
+            "fields" : [
+                { "schema_item" : "endpointID", "schema_value" : "endpointID", "type" : "input", "label" : "endpoint id", "description" : "The ID of the target endpoint", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "XOrganizationID", "schema_value" : "XOrganizationID", "type" : "input", "label" : "XOrganizationID", "description" : "The organisation ID to use", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_id", "schema_value" : "client_id", "type" : "input", "label" : "client id", "description" : "The Sophos ID to use to authenticate", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "client_secret", "schema_value" : "client_secret", "type" : "input", "label" : "client secret", "description" : "The client secret to authenticate with", "required" : true, "jimi_syntax" : false },
+                { "schema_item" : "tenant", "schema_value" : "tenant", "type" : "input", "label" : "tenant", "description" : "The tenant to query against", "required" : true, "jimi_syntax" : false }
+            ],
+            "data_out" : {
+                "result" : { 
+                    "description" : "Determines if the given action was successful.",
+                    "type" : "boolean",
+                    "always_present" : true,
+                    "values" : {
+                        "True" : { "description" : "Action completed successfully." },
+                        "False" : { "description" : "Action was unsuccessful." }
+                    }
+                },
+                "rc" : {
+                    "description" : "Returns the provided rc field value.",
+                    "type" : "number",
+                    "always_present" : true,
+                    "values" : {
+                        "(number)" : { "description" : "The integer provided within the rc field." }
+                    }
+                },
+                "data" : {
+                    "description" : "Outputs any returned data from the Sophos API",
+                    "type" : "json",
+                    "always_present" : false,
+                    "values" : {
+                        "(string)" : { "description" : "The returned data from the Sophos API" }
+                    }
+                }
+            }
+        }
+    },
+    "settings" : {
+
+    }
+}
