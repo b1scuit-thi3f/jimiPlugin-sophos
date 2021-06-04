@@ -95,6 +95,8 @@ class _assetSophos(trigger._trigger):
                             result["versions"] = versions
                             if "health" in computer:
                                 result["health"] = computer["health"]["overall"]
+
+                            result["sophos_id"] = computer["id"]
                         
                             self.result["events"].append(result)
         

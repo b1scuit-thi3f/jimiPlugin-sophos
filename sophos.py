@@ -11,7 +11,6 @@ class _sophos(plugin._plugin):
         model.registerModel("sophosGetTamperProtection", "_sophosGetTamperProtection", "_action", "plugins.sophos.models.action")
         model.registerModel("sophosSetTamperProtection", "_sophosSetTamperProtection", "_action", "plugins.sophos.models.action")
         model.registerModel("assetSophos","_assetSophos","_action","plugins.sophos.models.assetSophos")
-        print("good")
         return True
 
     def uninstall(self):
