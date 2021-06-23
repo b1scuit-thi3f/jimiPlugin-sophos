@@ -19,8 +19,8 @@ class _sophos(trigger._trigger):
                 alerts = sophosAPI.getAlerts(["category={}".format(",".join(self.category))])
                 self.result["events"] = {**alerts, "estate" : tenant}
 
-    def setAttribute(self,attr,value):
+    def setAttribute(self,attr,value,sessionData=None):
         if attr == "client_secret" and not value.startswith("ENC "):
             self.client_secret = "ENC {0}".format(auth.getENCFromPassword(value))
             return True
-        return super(_sophos, self).setAttribute(attr,value)
+        return super(_sophos, self).setAttribute(attr,value,sessionData=sessionData)

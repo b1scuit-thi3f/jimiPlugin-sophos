@@ -1,7 +1,7 @@
 {
    "name": "sophos",
    "author": "biscuit-thief, aberlleiniog",
-   "version": 1.1,
+   "version": 1.11,
    "categories": [
       "anti-virus"
    ],
@@ -435,6 +435,24 @@
                "label": "tenant",
                "description": "The tenant to query against",
                "required": true,
+               "jimi_syntax": false
+            },
+            {
+               "schema_item": "regenerate_password",
+               "schema_value": "regenerate_password",
+               "type": "checkbox",
+               "label": "regenerate password",
+               "description": "",
+               "required": false,
+               "jimi_syntax": false
+            },
+            {
+               "schema_item": "enable_protection",
+               "schema_value": "enable_protection",
+               "type": "checkbox",
+               "label": "enable protection",
+               "description": "",
+               "required": false,
                "jimi_syntax": false
             }
          ],
