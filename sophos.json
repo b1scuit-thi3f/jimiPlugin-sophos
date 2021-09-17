@@ -1,7 +1,7 @@
 {
    "name": "sophos",
    "author": "biscuit-thief, aberlleiniog",
-   "version": 1.11,
+   "version": 1.12,
    "categories": [
       "anti-virus"
    ],
@@ -311,6 +311,15 @@
                "label": "endpoint id",
                "description": "The ID of the target endpoint",
                "required": true,
+               "jimi_syntax": false
+            },
+            {
+               "schema_item": "invertID",
+               "schema_value": "invertID",
+               "type": "checkbox",
+               "label": "invert ID",
+               "description": "",
+               "required": false,
                "jimi_syntax": false
             },
             {

@@ -1,8 +1,7 @@
 from plugins.sophos.includes import sophos as sophosApi
 from core.models import action
 from core import auth, settings, logging, helpers
-
-#certSettings = settings.config["sophos"]
+import array
 
 class _sophosEndpoint(action._action):
     endpointID = str()
@@ -59,11 +58,17 @@ class _sophosGetTamperProtection(action._action):
     client_id = str()
     client_secret = str()
     tenant = str()
+    invertID = bool()
 
     def run(self,data,persistentData,actionResult):
         endpointID = helpers.evalString(self.endpointID,{"data" : data})
         tenant = helpers.evalString(self.tenant,{"data" : data})
         client_secret = auth.getPasswordFromENC(self.client_secret)
+
+        if self.invertID:
+            byteArray = array.array("H",endpointID)
+            byteArray.byteswap()
+            endpointID = byteArray.tostring()
 
         sophos = sophosApi.sophos(None, self.client_id, client_secret, self.XOrganizationID)
         sophos.setTenant(tenant)
@@ -72,6 +77,10 @@ class _sophosGetTamperProtection(action._action):
             actionResult["result"] = True
             actionResult["rc"] = 0
             actionResult["data"] = res["data"]
+            actionResult["msg"] = "Tamper protection password found"
+        else:
+            actionResult["rc"] = 404
+            actionResult["msg"] = res["data"]["message"]
         return actionResult
         
     def setAttribute(self,attr,value,sessionData=None):

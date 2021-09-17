@@ -4,8 +4,9 @@ import datetime
 from plugins.sophos.includes import sophos
 from core.models import trigger, webui
 from core import settings, logging, auth
+import jimi
 
-certSettings = settings.config["sophos"]
+certSettings = jimi.config["sophos"]
 
 class _assetSophos(trigger._trigger):  
     filters = list()
@@ -96,6 +97,8 @@ class _assetSophos(trigger._trigger):
                             if "health" in computer:
                                 result["health"] = computer["health"]["overall"]
 
+                            # Other data
+                            result["type"] = computer["type"]
                             result["sophos_id"] = computer["id"]
                         
                             self.result["events"].append(result)
