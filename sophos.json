@@ -1,7 +1,7 @@
 {
    "name": "sophos",
    "author": "biscuit-thief, aberlleiniog",
-   "version": 1.12,
+   "version": 1.13,
    "categories": [
       "anti-virus"
    ],
@@ -23,7 +23,7 @@
             {
                "schema_item": "category",
                "schema_value": "category",
-               "type": "input",
+               "type": "json-input",
                "label": "category",
                "description": "The category of alerts to return",
                "required": false,
