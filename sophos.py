@@ -1,7 +1,7 @@
 from core import plugin, model
 
 class _sophos(plugin._plugin):
-    version = 1.12
+    version = 1.13
 
     def install(self):
         # Register models
